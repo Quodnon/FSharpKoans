@@ -60,6 +60,17 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let splitCommas (x:string) =
+            x.Split([|','|])
+
+        let mapDiff ([|dateS:string; openP:string; _ ; _ ; closeP:string; _ ;_ ;|]) =
+            let diff = abs ((System.Double.Parse openP) - (System.Double.Parse closeP))
+            let result =  (dateS, diff) 
+            result
+    
+
+        let result = List.map (splitCommas>>mapDiff) stockData.Tail 
+                        |>List.maxBy snd
+                        |> fst
         
         AssertEquality "2012-03-13" result

@@ -21,13 +21,14 @@ module ``about pipelining`` =
     let SquareEvenNumbersWithSeparateStatements() =
         (* One way to combine the operations is by using separate statements.
            However, this is can be clumsy since you have to name each result. *)
-
+        let isEven x =
+            x % 2 = 0
         let numbers = [0..5]
 
         let evens = List.filter isEven numbers
         let result = List.map square evens
 
-        AssertEquality result __
+        AssertEquality result [0;4;16]
 
     [<Koan>]
     let SquareEvenNumbersWithParens() =
@@ -39,7 +40,7 @@ module ``about pipelining`` =
 
         let result = List.map square (List.filter isEven numbers)
 
-        AssertEquality result __
+        AssertEquality result [0;4;16]
 
     [<Koan>]
     let SquareEvenNumbersWithPipelineOperator() =
@@ -51,7 +52,7 @@ module ``about pipelining`` =
             |> List.filter isEven
             |> List.map square
         
-        AssertEquality result __
+        AssertEquality result [0;4;16]
 
     [<Koan>]
     let HowThePipeOperatorIsDefined() =
@@ -63,4 +64,4 @@ module ``about pipelining`` =
             |> List.filter isEven
             |> List.map square
 
-        AssertEquality result __
+        AssertEquality result [0;4;16]
